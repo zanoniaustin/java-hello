@@ -4,7 +4,7 @@ import static kiss.API.*;
 
 public class HelloWorld {
 
-    void untestRun(){
+    void testRun(){
         outExpect("Hello!");
         run();
         outClose();
