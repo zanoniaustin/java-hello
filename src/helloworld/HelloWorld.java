@@ -54,12 +54,24 @@ public class HelloWorld {
         
         assert (true || (1/0 == 3)) == true;
     }
+ 
+    void sideEffect(int y) {
+        println(y);
+    }
     
     void testInts(){
         assert Integer.MAX_VALUE == Math.pow(2,31)-1;
+        //println(Integer.MAX_VALUE);
+        assert Integer.MAX_VALUE == 2_147_483_647;
+        assert Integer.MAX_VALUE == 0b0111_1111_1111_1111_1111_1111_1111_1111;
+        
         assert Integer.MIN_VALUE == -Math.pow(2,31);
-        assert Integer.MIN_VALUE - 1 == Integer.MAX_VALUE;
+        //println(Integer.MIN_VALUE);
+        assert Integer.MIN_VALUE == -2_147_483_648;
+        assert Integer.MIN_VALUE == 0b1000_0000_0000_0000_0000_0000_0000_0000;
+        
         assert Integer.MAX_VALUE + 1 == Integer.MIN_VALUE;
+        assert Integer.MIN_VALUE - 1 == Integer.MAX_VALUE;
         
         int x = 3;
         int y = 0xff_ff;
@@ -80,5 +92,61 @@ public class HelloWorld {
         assert 17%5 == 2;
         assert -7 % 5 == -2;
         assert -7 % -5 == -2;
+        
+        int a = 1;
+        ++a;
+        try (Close out = outExpect("2")) { println(a);}
+        
+        try (Close out = outExpect("3")) { println(++a); }
+        try (Close out = outExpect("3")) { println(a); }
+        
+        try (Close out = outExpect("3")) { println(a++); }
+        try (Close out = outExpect("4")) { println(a); }
+        
+        //Bitwise not
+        assert ~0b0000_0000_0000_0000_0000_0000_1111_0000 
+             == 0b1111_1111_1111_1111_1111_1111_0000_1111;
+        assert                                   ~0b1111_0000 
+                 == 0b1111_1111_1111_1111_1111_1111_0000_1111;
+        
+        // Bitwise and
+        assert (0b1111_0000 & 0b1010_1010) == 0b1010_0000;
+        
+        // Bitwise or
+        assert (0b1111_0000 | 0b1010_1010) == 0b1111_1010;
+        
+        //Bit-shift operator, moving the decimal point
+        assert (0b1010_1111_0000 >> 4) == 0b1010_1111;
+        assert (0b1010_1111 << 4) == 0b1010_1111_0000;
+        
+        //seed(); this allows random num generator to give different numbers
+        int b = random(0,1_000_000);
+        println(b);
+        assert ((b >> 1) == b/2);
+        assert ((-b >> 1) == -b/2);
+        assert ((b << 1) == 2*b);
+        assert ((-b << 1) == 2*(-b));
+        
+        int c = random(-1_000_000,1_000_000);
+        assert ((~c) + 1) == -c;
+        
+        //When using negatives you shift all the numbers down then add a 1
+        //to the beggining because you have to keep the sign the same.
+        //right shifts shift the sign bit in (highest order bit)
+        assert -2 ==        0b1111_1111_1111_1111_1111_1111_1111_1110;
+        assert (-2 >> 1) == 0b1111_1111_1111_1111_1111_1111_1111_1111;
     }
+    
+    void testConvert(){
+        byte x = -1;
+        assert x == (byte) 0b1111_1111;
+        int y = x;
+        assert y == -1;
+        assert 0b1111_1111_1111_1111_1111_1111_1111_1111 == 
+                                (int) (byte) 0b1111_1111;
+    }
+    
+   void testLoops(){
+       
+   }
 }
