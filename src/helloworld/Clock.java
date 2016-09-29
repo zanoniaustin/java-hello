@@ -5,6 +5,7 @@
  */
 package helloworld;
 
+import java.util.ArrayList;
 import static kiss.API.*;
 
 /**
@@ -43,6 +44,10 @@ public class Clock implements Comparable<Clock>{
     void setHours(double _hours) {
         hours = _hours;
     }
+    
+    Clock(){ setHours(0);}
+    Clock(double _hours) {setHours(_hours); }
+    Clock(double _hours, double _minutes) {setHours(_hours + _minutes/60.0); }
     
     double getHours() {
         return started ? (hours + (time() - t0) / 3600.0) : hours;
@@ -97,7 +102,20 @@ public class Clock implements Comparable<Clock>{
         assert (clock1 == clock3) == false;
     }
     
-
+    @Override
+    public String toString(){
+        return String.format("%02d:%02d", (int) getHours(), (int) getMinutes());
+    }
     
-    
+    void testSortClocks(){
+        ArrayList<Clock> clocks = new ArrayList<Clock>();
+        clocks.add(new Clock(1));
+        clocks.add(new Clock(1, 30));
+        clocks.add(new Clock(2));
+        clocks.add(new Clock(1, 15));
+        clocks.sort(null);
+        for (Clock clock : clocks) {
+            println(clock);
+        }
+    }
 }
