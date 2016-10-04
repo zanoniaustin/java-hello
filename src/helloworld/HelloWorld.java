@@ -1,20 +1,27 @@
 package helloworld;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 import static kiss.API.*;
 
 
 public class HelloWorld {
 
-    void testClock() {
+    void untestClock() {
         Clock clock = test(new Clock());
     }
     
-    void testTimeZoneClock() {
+    void untestTimeZoneClock() {
         TimezoneClock tzClock = test(new TimezoneClock());
     }
-       void testBoxing() {
+       void untestBoxing() {
         Integer x = new Integer(3);
         Integer y = x;
         ++x;
@@ -25,6 +32,12 @@ public class HelloWorld {
         assert y.equals(new Integer(3));
         assert y.compareTo(new Integer(3)) == 0;
     }
+
+    private static class Iterator<T> {
+
+        public Iterator() {
+        }
+    }
        
    class Reverse implements Comparator<Integer>{
        @Override
@@ -33,7 +46,7 @@ public class HelloWorld {
     }
    }
        
-   void testArrayListInt() {
+   void untestArrayListInt() {
        ArrayList<Integer> ages = new ArrayList<Integer>();
        ages.add(3);
        ages.add(17);
@@ -57,4 +70,74 @@ public class HelloWorld {
            println(age);
        }
    }
+   
+    void testCollection(){
+       Collection<Integer> c = new LinkedList<Integer>();
+       c.add(3);
+       c.add(1);
+       c.add(7);
+       c.add(10);
+       assert c.contains(3) == true;
+       
+       c.remove(3);
+       
+       assert c.contains(3) == false;
+       
+       try (Close out = outExpect(1, EOL, 7, EOL, 10, EOL)){
+            java.util.Iterator<Integer> i = c.iterator();
+            while(i.hasNext()){
+              Integer value = i.next();
+             println(value);
+             }
+        
+        }
+       try (Close out = outExpect(1, EOL, 7, EOL, 10, EOL)){
+           for (Integer value : c){
+               println(value);
+           }
+       }
+   }
+   
+   
+   void testSet(){
+       Set<String> pets = new HashSet<String>();
+       pets.add("fluffy");
+       pets.add("pookie");
+       pets.add("pupper");
+       pets.add("doge");
+       pets.add("pepe");
+       
+       try(Close out = outExpect("pupper",EOL,"doge",EOL,"pookie",EOL,"fluffy",EOL,"pepe",EOL)){
+            for(String pet : pets)
+                println(pet);
+       }
+   }
+   
+   void testTreeSet(){
+       Set<String> pets = new TreeSet<String>();
+       pets.add("fluffy");
+       pets.add("pookie");
+       pets.add("pupper");
+       pets.add("doge");
+       pets.add("pepe");
+       
+       try(Close out = outExpect("doge",EOL,"fluffy",EOL,"pepe",EOL,"pookie",EOL,"pupper",EOL)){
+            for(String pet : pets)
+                println(pet);
+       }
+   }
+   
+   void testMap(){
+       Map<String, Integer> petAges = new HashMap<String, Integer>();
+       
+       petAges.put("fluffy", 7);
+       petAges.put("pookie", 2);
+       petAges.put("pupper", 100);
+       petAges.put("doge", 3);
+       petAges.put("pepe", 83);
+       
+   }
+  
+   
+   
 }

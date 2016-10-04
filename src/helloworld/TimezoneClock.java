@@ -47,14 +47,14 @@ public class TimezoneClock extends Clock {
         super.setHours(mod(_hours - timezoneShift, 12.0));
     }
     
-    void testGetTime(){
+    void untestGetTime(){
         Clock clock = new TimezoneClock();
         double hours = clock.getHours();
         double minutes = clock.getMinutes();
         double seconds = clock.getSeconds(); 
     }
     
-    void testGetCorrectTime() {
+    void untestGetCorrectTime() {
         Clock clock = new TimezoneClock();
         clock.setHours(6.50);
         assert clock.getHours() == 6.50;
@@ -62,7 +62,7 @@ public class TimezoneClock extends Clock {
         assert clock.getSeconds() == 0.0;
     }
     
-    void testGetFlowingTime() {
+    void untestGetFlowingTime() {
         Clock clock = new TimezoneClock();
         clock.setHours(1.00);
         clock.start();
@@ -72,7 +72,7 @@ public class TimezoneClock extends Clock {
         assert abs(now - shouldBe) < (0.1/3600.0);
     }
     
-    void testMST(){
+    void untestMST(){
         TimezoneClock clock = new TimezoneClock(Timezone.MDT);
         println("tzShift: " + clock.timezoneShift);
         println("Time: " + asInt(clock.getHours()) + ":" + asInt(clock.getMinutes()));

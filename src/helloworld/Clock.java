@@ -54,14 +54,14 @@ public class Clock implements Comparable<Clock>{
         return (_minutes - Math.floor(_minutes)) * 60.0;
     }
     
-    void testGetTime(){
+    void untestGetTime(){
         Clock clock = new Clock();
         double hours = clock.getHours();
         double minutes = clock.getMinutes();
         double seconds = clock.getSeconds(); 
     }
     
-    void testGetCorrectTime() {
+    void untestGetCorrectTime() {
         Clock clock = new Clock();
         clock.setHours(6.50);
         assert clock.getHours() == 6.50;
@@ -69,7 +69,7 @@ public class Clock implements Comparable<Clock>{
         assert clock.getSeconds() == 0.0;
     }
     
-    void testGetFlowingTime() {
+    void untestGetFlowingTime() {
         Clock clock = new Clock();
         clock.setHours(1.00);
         clock.start();
@@ -79,7 +79,7 @@ public class Clock implements Comparable<Clock>{
         assert abs(now - shouldBe) < (0.1/3600.0);
     }
     
-    void testEquals(){
+    void untestEquals(){
         Clock clock1 = new Clock();
         Clock clock2 = clock1;
         Clock clock3 = new Clock();
@@ -98,7 +98,7 @@ public class Clock implements Comparable<Clock>{
         return String.format("%02d:%02d", (int) getHours(), (int) getMinutes());
     }
     
-    void testSortClocks(){
+    void untestSortClocks(){
         ArrayList<Clock> clocks = new ArrayList<Clock>();
         clocks.add(new Clock(1));
         clocks.add(new Clock(1, 30));
