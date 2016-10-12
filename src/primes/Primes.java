@@ -25,7 +25,25 @@ public class Primes {
         assert primes.isPrime(6) == false;
     }
     
+    void testBigPrimes() {
+        Primes primes = new Primes();
+        double t0 = time();
+        assert primes.isPrime(1_000_003) == true;
+        double smallTime = time() - t0;
+        
+        double t1 = time();
+        assert primes.isPrime(1_000_000_007) == true;
+        double bigTime = time() - t1;
+        
+        //assert (bigTime < (100*smallTime));
+    }
+    
     boolean isPrime(int x){
+        for(int factor = 2; factor <= sqrt(x); factor++){
+            if (x % factor == 0) return false;
+           return true; 
+        }
+        
         return true;
     }
     
