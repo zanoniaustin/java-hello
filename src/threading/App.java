@@ -5,10 +5,22 @@
  */
 package threading;
 
-/**
- *
- * @author austi
- */
+import static kiss.API.*;
+
+
+
+        
 public class App {
+    void run(){
+            //using lambda to do very small and simple thread 
+        new Thread(()->{ pause(2); println("Hi"); }).start(); 
+        
+        // whole class that extends thread
+        ConsoleClock clock = new ConsoleClock();
+        clock.start();
+        pause(4.0);
+        clock.close();
+        println("done.");
+    }
     
 }
